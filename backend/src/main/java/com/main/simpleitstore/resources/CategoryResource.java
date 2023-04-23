@@ -1,4 +1,4 @@
-package com.main.dscatalog.resources;
+package com.main.simpleitstore.resources;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.main.dscatalog.Services.CategoryService;
-import com.main.dscatalog.entities.Category;
+import com.main.simpleitstore.Services.CategoryService;
+import com.main.simpleitstore.entities.Category;
 
 @RestController
 @RequestMapping(value = "/categories")

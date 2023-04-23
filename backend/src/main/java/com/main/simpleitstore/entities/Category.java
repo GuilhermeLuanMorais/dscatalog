@@ -1,4 +1,4 @@
-package com.main.dscatalog.entities;
+package com.main.simpleitstore.entities;
 
 import java.io.Serializable;
 import java.util.Objects;

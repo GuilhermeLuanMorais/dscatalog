@@ -1,13 +1,13 @@
-package com.main.dscatalog;
+package com.main.simpleitstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DscatalogApplication {
+public class SimpleitstoreApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DscatalogApplication.class, args);
+		SpringApplication.run(SimpleitstoreApplication.class, args);
 	}
 
 }

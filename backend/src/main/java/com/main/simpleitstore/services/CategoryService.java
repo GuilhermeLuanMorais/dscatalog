@@ -30,6 +30,7 @@ public class CategoryService {
 		return categories.map(x -> new CategoryDTO(x));
 	}
 
+	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> optional = repository.findById(id);	
 		Category category = new Category();

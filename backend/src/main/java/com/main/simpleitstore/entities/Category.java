@@ -1,6 +1,7 @@
 package com.main.simpleitstore.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private Instant createdAt;
 	
 	public Category() {	}
 	
@@ -58,6 +60,14 @@ public class Category implements Serializable {
 			return false;
 		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	

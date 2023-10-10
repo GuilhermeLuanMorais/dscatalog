@@ -10,21 +10,35 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.main.simpleitstore.entities.Product;
+import com.main.simpleitstore.tests.Factory;
 
 @DataJpaTest
 public class ProductRepositoryTests {
 	
-	Long existingId;
-	long nonExistingId;
+	private Long existingId;
+	private long nonExistingId;
+	private long countTotalProducts;
+	
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@BeforeEach
 	void setUp() {
 		existingId = 1L;
 		nonExistingId = 1000L;
+		countTotalProducts = 25L;
 	}
 	
-	@Autowired
-	private ProductRepository productRepository;
+	@Test
+	public void saveShouldPersistWithAutoincrementWhenIdIsNull() {
+		Product product = Factory.createProduct();
+		
+		product.setId(null);
+		product = productRepository.save(product);
+		
+		Assertions.assertNotNull(product);
+		Assertions.assertEquals(countTotalProducts + 1, product.getId());
+	}
 	
 	@Test
 	public void deleteShouldDeleteObjectWhenIdExists() {

@@ -2,6 +2,8 @@ package com.main.simpleitstore.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,14 +43,14 @@ public class ProductResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO category) {
+	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO category) {
 		category = productService.insert(category);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(category.getId()).toUri();
 		return ResponseEntity.created(uri).body(category);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProductDTO> insert(@PathVariable Long id, @RequestBody ProductDTO category) {
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO category) {
 		category = productService.update(id, category);
 		
 		return ResponseEntity.ok().body(category);

@@ -2,6 +2,7 @@ package com.main.simpleitstore.resources.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 
 public class StandardError implements Serializable {
 
@@ -11,6 +12,7 @@ public class StandardError implements Serializable {
 	private String msg;
 	private String path;
 	private String error;
+	private List<String> errors;
 	
 	public StandardError() {
 		

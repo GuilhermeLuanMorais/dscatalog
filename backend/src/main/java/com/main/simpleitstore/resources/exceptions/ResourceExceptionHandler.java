@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -40,6 +42,25 @@ public class ResourceExceptionHandler  {
 		err.setError("Database Exception");
 		err.setMsg(e.getMessage());
 		err.setPath(req.getRequestURI());
+		return ResponseEntity.status(badRequest).body(err);
+				
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ValidationError> validate(MethodArgumentNotValidException e, HttpServletRequest req) {
+		ValidationError err = new ValidationError();
+		HttpStatus badRequest = HttpStatus.UNPROCESSABLE_ENTITY; // 422 Não foi possível validar alguma entidade
+		
+		err.setTimestamp(Instant.now());
+		err.setStatus(badRequest.value());
+		err.setError("Validation Exception");
+		err.setMsg(e.getMessage());
+		err.setPath(req.getRequestURI());
+		
+		for(FieldError field : e.getBindingResult().getFieldErrors()) {
+			err.addError(field.getField(), field.getDefaultMessage());
+		}
+		
 		return ResponseEntity.status(badRequest).body(err);
 				
 	}

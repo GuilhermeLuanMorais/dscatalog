@@ -1,6 +1,5 @@
 package com.main.simpleitstore.services;
 
-
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,6 +11,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /*import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +34,7 @@ import com.main.simpleitstore.services.exceptions.DatabaseException;
 import com.main.simpleitstore.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class UserService /* implements UserDetailsService */ {
+public class UserService implements UserDetailsService {
 
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -102,14 +104,15 @@ public class UserService /* implements UserDetailsService */ {
 		}
 	}
 
-	/*
-	 * @Override public UserDetails loadUserByUsername(String username) throws
-	 * UsernameNotFoundException {
-	 * 
-	 * User user = repository.findByEmail(username); if (user == null) {
-	 * logger.error("User not found: " + username); throw new
-	 * UsernameNotFoundException("Email not found"); } logger.info("User found: " +
-	 * username); return user; }
-	 */
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = repository.findByEmail(username);
+		if (user == null) {
+			logger.error("User not found: " + username);
+			throw new UsernameNotFoundException("Email not found");
+		}
+		logger.info("User found: " + username);
+		return user;
+	}
 
 }

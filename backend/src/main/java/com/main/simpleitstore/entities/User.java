@@ -17,13 +17,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/*import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;*/
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements /*UserDetails,*/ Serializable {
+public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -123,7 +123,7 @@ public class User implements /*UserDetails,*/ Serializable {
 		return true;
 	}
 
-	/*@Override
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
 				.collect(Collectors.toList());
@@ -152,5 +152,6 @@ public class User implements /*UserDetails,*/ Serializable {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}*/
+	}
+
 }
